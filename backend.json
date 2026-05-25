@@ -1,0 +1,122 @@
+
+{
+  "entities": {
+    "Charter": {
+      "title": "Service Charter",
+      "description": "A comprehensive service delivery agreement document with version history.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "status": { "type": "string", "enum": ["Draft", "Active", "Review", "On Hold", "Rejected", "Rework"] },
+        "approverNotes": { "type": "string", "description": "Feedback provided by the approver during review." },
+        "basicInfo": { "type": "object" },
+        "stakeholders": { "type": "object" },
+        "scope": { "type": "object" },
+        "generalInfo": { "type": "object" },
+        "serviceOfferings": { "type": "object" },
+        "techSpecs": { "type": "object" },
+        "desktopBuild": { "type": "object" },
+        "appDetails": { "type": "object" },
+        "governance": { "type": "object" },
+        "compliance": { 
+          "type": "object"
+        },
+        "contractual": { "type": "object" },
+        "financials": { "type": "object" },
+        "history": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "status"]
+    },
+    "Document": {
+      "title": "Document",
+      "description": "A file or record stored within the document library.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "folder": { "type": "string" },
+        "clientName": { "type": "string" },
+        "type": { "type": "string" },
+        "size": { "type": "string" },
+        "content": { "type": "string" },
+        "sourceId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "folder", "createdAt"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "A system notification for users based on their roles.",
+      "type": "object",
+      "properties": {
+        "message": { "type": "string" },
+        "recipientRole": { "type": "string" },
+        "type": { "type": "string" },
+        "targetId": { "type": "string" },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "NetworkDiagram": {
+      "title": "Network Diagram",
+      "description": "A sequential high-level network architecture mapping hops for Data and Voice.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "clientName": { "type": "string" },
+        "notes": { "type": "string", "description": "Raw design notes provided by the user." },
+        "refinedSummary": { "type": "string", "description": "AI-refined professional architectural summary." },
+        "coreServices": { 
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Internal services like AD, DNS, WSUS used by endpoints."
+        },
+        "dataPath": { 
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": { "type": "string" },
+              "label": { "type": "string" }
+            }
+          }
+        },
+        "voicePath": { 
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": { "type": "string" },
+              "label": { "type": "string" }
+            }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "clientName"]
+    },
+    "Feedback": {
+      "title": "User Feedback",
+      "description": "Feedback recorded by users of the portal.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "content": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "auth": {
+    "providers": ["google.com"]
+  },
+  "firestore": {
+    "charters/{charterId}": { "schema": "Charter" },
+    "documents/{docId}": { "schema": "Document" },
+    "notifications/{notificationId}": { "schema": "Notification" },
+    "network-diagrams/{diagramId}": { "schema": "NetworkDiagram" },
+    "feedback/{feedbackId}": { "schema": "Feedback" }
+  }
+}

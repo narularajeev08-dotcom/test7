@@ -1,0 +1,10 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // PUBLIC ACCESS POLICY
+    // Strategic Requirement: Accessible for all users without authentication.
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}

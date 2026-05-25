@@ -1,0 +1,5 @@
+{
+  "projects": {
+    "default": "eci-gcp-ent-fstudio-ri"
+  }
+}
